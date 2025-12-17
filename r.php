@@ -79,8 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 function get_input_value($fieldName) {
-    global $$fieldName;
-    return htmlspecialchars($$fieldName ?? '');
+    global $name, $email, $password, $confirmPassword;
+    $map = [
+        'name' => $name,
+        'email' => $email,
+        'password' => $password,
+        'confirm_password' => $confirmPassword,
+    ];
+    return htmlspecialchars($map[$fieldName] ?? '');
 }
 function display_error($fieldName) {
     global $errors;
@@ -123,26 +129,26 @@ function display_error($fieldName) {
                 
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value="<?php echo get_input_value('name'); ?>" required>
+                    <input type="text" id="name" name="name" value="<?php echo get_input_value('name'); ?>">
                     <?php echo display_error('name'); ?>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" value="<?php echo get_input_value('email'); ?>" required>
+                    <input type="email" id="email" name="email" value="<?php echo get_input_value('email'); ?>">
                     <?php echo display_error('email'); ?>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password">
                     <?php echo display_error('password'); ?>
                     <span class="help-text">Min 8 chars, with uppercase, lowercase, and a number/special character.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="confirm_password">Confirm Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <input type="password" id="confirm_password" name="confirm_password">
                     <?php echo display_error('confirm_password'); ?>
                 </div>
 
